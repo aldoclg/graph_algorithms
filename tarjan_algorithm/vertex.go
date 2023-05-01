@@ -12,8 +12,12 @@ type Vertex struct {
 	componentId int
 }
 
-func New(name string) Vertex {
-	return Vertex{name: name}
+func NewVertex(name string) *Vertex {
+	return &Vertex{name: name}
+}
+
+func (v *Vertex) GetName() string {
+	return v.name
 }
 
 func (v *Vertex) AddNeighbor(vertex *Vertex) {
@@ -56,9 +60,9 @@ func (v *Vertex) SetComponentId(value int) {
 }
 
 func (v Vertex) String() string {
-	o := fmt.Sprintf("%s %v %v %d", v.name, v.Visited, v.OnStack, v.componentId)
+	o := fmt.Sprintf("%s [%d] ->", v.name, v.componentId)
 	for _, e := range v.adjacency {
-		o = o + fmt.Sprintf(" %v", e.name)
+		o = o + fmt.Sprintf(" %s", e.name)
 	}
 	return o
 }

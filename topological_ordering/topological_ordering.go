@@ -1,8 +1,8 @@
 package topological_ordering
 
 import (
-	"vertex/stack"
-	"vertex/vertex"
+	"github.com/aldoclg/graph_algorithms/stack"
+	"github.com/aldoclg/graph_algorithms/vertex"
 )
 
 type TopologicalOrder struct {

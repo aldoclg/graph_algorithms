@@ -3,8 +3,8 @@ package dsf
 import (
 	"fmt"
 
-	"github.com/aldoclg/graphalgorithm/stack"
-	"github.com/aldoclg/graphalgorithm/vertex"
+	"github.com/aldoclg/graph_algorithms/stack"
+	"github.com/aldoclg/graph_algorithms/vertex"
 )
 
 func Traverse(root *vertex.Vertex) {

@@ -9,6 +9,7 @@ import (
 	"github.com/aldoclg/graph_algorithms/dsf"
 	kruskalalgorithm "github.com/aldoclg/graph_algorithms/kruskal_algorithm"
 	primsalghorithm "github.com/aldoclg/graph_algorithms/prims_alghorithm"
+	tarjanalgorithm "github.com/aldoclg/graph_algorithms/tarjan_algorithm"
 	"github.com/aldoclg/graph_algorithms/topological_ordering"
 	"github.com/aldoclg/graph_algorithms/vertex"
 )
@@ -88,6 +89,13 @@ func main() {
 
 	lazyPrimsAlghorithm.Run(graphs[0])
 	lazyPrimsAlghorithm.Print()
+
+	graphs5 := createGraphList5()
+
+	tarjanAlgorithm := tarjanalgorithm.NewTarjaAlgorithm(graphs5)
+
+	tarjanAlgorithm.Run()
+	tarjanAlgorithm.Print()
 
 }
 
@@ -283,5 +291,51 @@ func createGraphList4() []*primsalghorithm.Vertex {
 	v6.AddNeighbor(primsalghorithm.NewEdge(v6, v5, 2))
 
 	return graphList
+
+}
+
+func createGraphList5() []*tarjanalgorithm.Vertex {
+
+	vertexes := make([]*tarjanalgorithm.Vertex, 0)
+	v1 := tarjanalgorithm.NewVertex("1")
+	v2 := tarjanalgorithm.NewVertex("2")
+	v3 := tarjanalgorithm.NewVertex("3")
+	v4 := tarjanalgorithm.NewVertex("4")
+	v5 := tarjanalgorithm.NewVertex("5")
+	v6 := tarjanalgorithm.NewVertex("6")
+	v7 := tarjanalgorithm.NewVertex("7")
+	v8 := tarjanalgorithm.NewVertex("8")
+
+	v1.AddNeighbor(v2)
+
+	v2.AddNeighbor(v3)
+	v2.AddNeighbor(v5)
+	v2.AddNeighbor(v6)
+
+	v3.AddNeighbor(v4)
+	v3.AddNeighbor(v7)
+
+	v4.AddNeighbor(v8)
+	v4.AddNeighbor(v3)
+
+	v5.AddNeighbor(v1)
+	v5.AddNeighbor(v6)
+
+	v6.AddNeighbor(v7)
+	v7.AddNeighbor(v6)
+
+	v8.AddNeighbor(v4)
+	v8.AddNeighbor(v7)
+
+	vertexes = append(vertexes, v1)
+	vertexes = append(vertexes, v2)
+	vertexes = append(vertexes, v3)
+	vertexes = append(vertexes, v4)
+	vertexes = append(vertexes, v5)
+	vertexes = append(vertexes, v6)
+	vertexes = append(vertexes, v7)
+	vertexes = append(vertexes, v8)
+
+	return vertexes
 
 }

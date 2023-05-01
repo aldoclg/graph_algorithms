@@ -2,8 +2,8 @@ package tarjanalgorithm
 
 import (
 	"fmt"
-	"math"
-	"vertex/stack"
+
+	"github.com/aldoclg/graph_algorithms/stack"
 )
 
 type TarjanAlgorithm struct {
@@ -32,34 +32,44 @@ func (this *TarjanAlgorithm) dfs(vertex *Vertex) {
 	this.index++
 	this.stack.Push(vertex)
 	vertex.OnStack = true
+
 	for _, v := range vertex.GetAdjacency() {
 		if !v.Visited {
 			this.dfs(v)
-			newLowLink := math.Min(float64(vertex.lowLink), float64(v.lowLink))
-			vertex.SetLowLink(int(newLowLink))
+			vertex.SetLowLink(min(vertex.lowLink, v.lowLink))
 		} else if v.OnStack {
-			newLowLink := math.Min(float64(vertex.lowLink), float64(v.index))
-			vertex.SetLowLink(int(newLowLink))
+			vertex.SetLowLink(min(vertex.lowLink, v.index))
 		}
+	}
 
-		if vertex.lowLink == vertex.index {
-			for true {
-				w := this.stack.Pop()
-				w.OnStack = false
-				w.SetComponentId(this.sccCounter)
+	if vertex.GetLowLink() == vertex.GetIndex() {
+		for true {
 
-				if w == vertex {
-					break
-				}
+			if this.stack.IsEmpty() {
+				break
 			}
 
-			this.sccCounter++
+			w := this.stack.Pop()
+			w.OnStack = false
+			w.SetComponentId(this.sccCounter)
+
+			if w.GetName() == vertex.GetName() {
+				break
+			}
 		}
+		this.sccCounter++
 	}
 }
 
-func (this *TarjanAlgorithm) print() {
+func min(number1, number2 int) int {
+	if number1 < number2 {
+		return number1
+	}
+	return number2
+}
+
+func (this *TarjanAlgorithm) Print() {
 	for _, v := range this.graph {
-		fmt.Printf("%v\v", v)
+		fmt.Printf("%v\n", v)
 	}
 }
